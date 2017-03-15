@@ -3,11 +3,13 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
 
 ## How it works
 
- On USBphpTunnel terminal you can see (img/screenshot04.png):
-
-         data received from Arduino ("Read 49 bytes"):
-               the data MUST be a relative URL, like: "/testio/add.php?primo=32&secondo=4.5&terzo=18:09" and MUST start with "/".
-               [phpPath (in config) + data] makes an absolute URL, called by USBphpTunnel.
+ On USBphpTunnel terminal you can see:
+ 
+![Terminal screenshot](./test_files/img/Screenshot04.png)
+ 
+ ** data received from Arduino ("Read 49 bytes"): **
+   the data MUST be a relative URL, like: '"/testio/add.php?primo=32&secondo=4.5&terzo=18:09"' and MUST start with "/".
+   '[phpPath (in config) + data]' makes an absolute URL, called by USBphpTunnel.
                note: Your Arduino Sketch will build relative URLs using the requiered PHP pages and actual values.
 
                The PHP sample code in add.php: 
@@ -44,7 +46,7 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
             Any contribution is very well accepted and solicited ( https://github.com/msillano/USBphpTunnel ) Thanks.
             Acknowledgement: developped starting from https://github.com/mik3y/usb-serial-for-android.
 
-   ============================= CONCLUSIONS
+   # CONCLUSIONS
   
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
