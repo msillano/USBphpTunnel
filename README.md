@@ -8,17 +8,17 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
 ![Terminal screenshot 4](./test_files/img/Screenshot04.png)
  
          data received from Arduino ("Read 49 bytes"): **
-             the data MUST be a relative URL, like: '"/testio/add.php?primo=32&secondo=4.5&terzo=18:09"' and MUST 
-             start with "/". So [phpPath (in config) + data]  makes an absolute URL, called by USBphpTunnel.
-             note: Your Arduino Sketch will build relative URLs using the requiered PHP pages and actual values.
+               the data MUST be a relative URL, like: '"/testio/add.php?primo=32&secondo=4.5&terzo=18:09"' and MUST 
+               start with "/". So [phpPath (in config) + data]  makes an absolute URL, called by USBphpTunnel.
+               note: Your Arduino Sketch will build relative URLs using the requiered PHP pages and actual values.
 
-               The PHP sample code in [add.php](./test_files/www/testio/add.php) 
+               The PHP sample code in add.php (see /test_files/www/testio/add.php): 
                    a) adds a record to MySQL table datatest.esempio
                    b) buids the response: pure ASCII (not HTML)
                USBphpTunnel sends the response to Arduino:
          
           data sended to Arduino ("Send 11 bytes")
-               the data are commands, as defined in testser02.ino:
+               the data are commands, as defined in testser02.ino ( see /test_files/arduino/testser02.ino ):
                   1) Analog write,  sended as "A port value": A [3..11] [0..255] [0xD|0x0A] 
                      (as decimal, 0-octal, 0x-esa)
                   2) Digital write, sended as "D pin  value": D [2..13] [0|1|2] [0xD|0x0A]
@@ -40,20 +40,18 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
                
   ![Terminal screenshot 5](./test_files/img/Screenshot05.png)
   
-    The protocol is pure text, so we can also do testing with a standard terminal application (Arduino console terminal). (img/screenshot05.png)
-    note: the only terminal app that worked for me is "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
+    Because this protocol is pure text, we can also do testing with a standard terminal application (Arduino console terminal):
+    note: the only terminal app that worked for me is:
+         "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
     
-    More apps used in development (see img/screenshot01.png): 
-            * "Terminal IDE" (to compile java and simple apps, to enhance linux) https://play.google.com/store/apps/details?id=com.spartacusrex.spartacuside
-            * "All-In-One Toolbox (pulito)" (Android management) https://play.google.com/store/apps/details?id=imoblife.toolbox.full
-            * "MatLog: Material Logcat Reader" (logcat capture) https://play.google.com/store/apps/details?id=com.pluscubed.matlog
-    
-    ================  For Android developers
-         
-            Any contribution is very well accepted and solicited ( https://github.com/msillano/USBphpTunnel ) Thanks.
-            Acknowledgement: developped starting from https://github.com/mik3y/usb-serial-for-android.
+###Developped an tested using:
+       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC") 
+                            http://www.ebay.it/itm/141956901542 (29.78 €)
+       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) 
+                            http://www.ebay.it/itm/152002551433 (5.79 €)
+      
 
-   # CONCLUSIONS
+   ## CONCLUSIONS
   
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
