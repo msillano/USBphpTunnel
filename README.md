@@ -1,5 +1,9 @@
 # USBphpTunnel
 Android app for MXQ TV box to control an Arduino board via USB from PHP.
+Designed for data-logging applications ( weather, hydroponics, greenhouses, aquariums, home automation,
+power consumpion, solar or wind generators etc.), this solution can be useful also in alarms and burglar.
+It can be see as a replacement for Arduino YUN, with more sketch memory (it uses only 5.600 Bytes of 32.256)
+and lower price.
 
 ## How it works
 
@@ -44,7 +48,7 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
     Arduino console terminal: the only terminal app that worked with my Arduino board is
     "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
     
- ###Developped an tested using:
+Developped an tested using:
  
        MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC: 
                             http://www.ebay.it/itm/141956901542 (29.78 €)
@@ -53,11 +57,11 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
        MXQ Palapa Web server:
                             https://play.google.com/store/apps/details?id=com.alfanla.android.pws
       
-###Installation
+Installation
 
        see file /test_files/readme.txt
 
-##CONCLUSIONS
+CONCLUSIONS
    
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
