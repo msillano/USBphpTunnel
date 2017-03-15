@@ -41,16 +41,20 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
   ![Terminal screenshot 5](./test_files/img/Screenshot05.png)
   
     Because this protocol is pure text, we can also do testing with a standard terminal application.
-    Arduino console terminal: the only terminal app that worked for me is
+    Arduino console terminal: the only terminal app that worked with my Arduino board is
     "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
     
  ###Developped an tested using:
-       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC") 
+ 
+       MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC: 
                             http://www.ebay.it/itm/141956901542 (29.78 €)
-       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) 
+       ARDIINO UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino: 
                             http://www.ebay.it/itm/152002551433 (5.79 €)
+       MXQ Palapa Web server:
+                            https://play.google.com/store/apps/details?id=com.alfanla.android.pws
       
    ### CONCLUSIONS
+   
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
     At the end your application will works on MXQ+Arduino also 24/7 with only 20 Watt AC power, and can also
