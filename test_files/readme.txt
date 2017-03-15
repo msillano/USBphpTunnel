@@ -21,11 +21,13 @@ Developped an tested using:
 ================================  Setup:
 MXQ:
    pre-condition: MSQ connected via lan/wifi to main PC (win) and internet.
-   note: to make things easy, connect screen and keyboard+mouse to MXQ (only for installation and setup)(see img/screenshot01.png)
+   note: to make things easy, connect screen and keyboard+mouse to MXQ (only for installation and setup:
+         see img/screenshot01.png)
          I get one kit from ebay: (KIT TASTIERA SLIM MOUSE OTTICO WIRELESS SENZA FILI 2.4 GHZ MINI KEYBOARD)                            
                                    http://www.ebay.it/itm/112044834373 (7.80 €)
          To map all special chars required to write code and not presents in this mini Italian keyboard I used 
-                  "External Keyboard Helper Demo"  https://play.google.com/store/apps/details?id=com.apedroid.hwkeyboardhelperdemo  
+                  "External Keyboard Helper Demo"  
+                     https://play.google.com/store/apps/details?id=com.apedroid.hwkeyboardhelperdemo  
 
    1) install Palapa Web server: https://play.google.com/store/apps/details?id=com.alfanla.android.pws
        1a) config Palapa Web server and DB server "start on boot"
@@ -33,7 +35,8 @@ MXQ:
 
    3) install phpMyAdmin ver. 4.1.14.1 from https://www.phpmyadmin.net/files/ in /sdcard/pws/phpmyadmin
       note: to make it easy, install FTP:   
-       3.a) on MXQ "Rooted SSH/SFTP Daemon"  https://play.google.com/store/apps/details?id=web.oss.sshsftpDaemon
+       3.a) on MXQ "Rooted SSH/SFTP Daemon"  
+                   https://play.google.com/store/apps/details?id=web.oss.sshsftpDaemon
        3.b) on Windows: "WinSCP"  https://winscp.net/                                       
    
    3) using phpmyadmin:  3a) create database "datatest"
@@ -63,7 +66,8 @@ MXQ:
 
 Arduino UNO:
     1) compile and install the Sketch arduino/testser02.ino
-       (on MXQ you can use ArduinoDroid https://play.google.com/store/apps/details?id=name.antonsmirnov.android.arduinodroid2,
+       (on MXQ you can use ArduinoDroid 
+               https://play.google.com/store/apps/details?id=name.antonsmirnov.android.arduinodroid2,
        see img/screenshot02.png)
 
 ============================== test and use
