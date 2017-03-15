@@ -56,8 +56,8 @@ Developped an tested using:
                             https://play.google.com/store/apps/details?id=com.alfanla.android.pws
       
 Installation
-
-       see file /test_files/readme.txt
+       Download USBphpTunnel01_d.apk and the full test_files dir
+       See file /test_files/readme.txt
 
 CONCLUSIONS
    
