@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('C:/Users/Sillano/Documents/keystore/sample.jks')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion 19
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 19
+        testApplicationId 'com.hoho.android.usbserial.examples.test'
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        signingConfig signingConfigs.config
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+        }
+        debug {
+            debuggable true
+        }
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+}
+
+dependencies {
+    compile project(':usbSerialForAndroid')
+}
