@@ -53,7 +53,11 @@ Android app for MXQ TV box to control an Arduino board via USB from PHP.
        MXQ Palapa Web server:
                             https://play.google.com/store/apps/details?id=com.alfanla.android.pws
       
-   ### CONCLUSIONS
+###Installation
+
+       see file /test_files/readme.txt
+
+##CONCLUSIONS
    
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
