@@ -65,7 +65,7 @@ CONCLUSIONS
    
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
-    At the end your application will works on MXQ+Arduino also 24/7 with only 20 Watt AC power, and can also
+    At the end your application will works on MXQ+Arduino UNO even 24/7 with only 20 Watt AC power, and can
     be controlled by smartphone via WiFi.
     What more?
     Enjoy.
