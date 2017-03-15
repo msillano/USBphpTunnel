@@ -2,8 +2,6 @@
 Android app for MXQ TV box to control an Arduino UNO board via USB from PHP.
 Designed for data-logging applications (weather, hydroponics, greenhouses, aquariums, home automation,
 power consumpion, solar or wind generators etc.), this solution can be useful also in alarms and burglar.
-It can be see as a replacement for Arduino YUN, with more sketch memory (it uses only 5.600 Bytes of 32.256)
-and lower price.
 
 ## How it works
 
