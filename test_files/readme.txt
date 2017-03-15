@@ -28,8 +28,8 @@ MXQ:
                   "External Keyboard Helper Demo"  https://play.google.com/store/apps/details?id=com.apedroid.hwkeyboardhelperdemo  
 
    1) install Palapa Web server: https://play.google.com/store/apps/details?id=com.alfanla.android.pws
-   2) config Palapa Web server and DB server "start on boot"
-      keep default user/password (DB server: "root"/none)
+       1a) config Palapa Web server and DB server "start on boot"
+       1b) keep default user/password (DB server: "root"/none)
 
    3) install phpMyAdmin ver. 4.1.14.1 from https://www.phpmyadmin.net/files/ in /sdcard/pws/phpmyadmin
       note: to make it easy, install FTP:   
@@ -38,18 +38,21 @@ MXQ:
    
    3) using phpmyadmin:  3a) create database "datatest"
                          3b) on "datatest" import the SQL file datatest.sql to make table "esempio"
+  
    4) copy www/*  to MQX, in  /sdcard/pws/www
 
    5) install on MXQ the app: USBphpTunnel01_d.apk
           5a) copy it in /scard/download
-          5b) using a file browser on MKQ  (e.g. totalCommander https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander)
-              click on /scard/dowunload/USBphpTunnel01_d.apk to install.
+          5b) using a file browser on MKQ  (e.g. totalCommander 
+                  https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander)
+              then click on /scard/dowunload/USBphpTunnel01_d.apk to install.
 
    6) connect Arduino to USB :
           6a) choose "USB php Tunnel" and "Always" for USB device
               note: first run creates the config file
           6b) The app must find your Arduino board: keep the vendorId and productId (see img/screenshot03.png)
-              note: for supported vendorId/productId, see the file \usbSerialForAndroid\src\main\java\com\hoho\android\usbserial\driver\UsbId.java
+              note: for supported vendorId/productId, see the 
+                    file \usbSerialForAndroid\src\main\java\com\hoho\android\usbserial\driver\UsbId.java
           6c) close the app USBphpTunnel.
 
    7) Edit the config file at /sdcard/USBphpTunnel/config.ini:
@@ -71,7 +74,7 @@ Arduino UNO:
 
     3) the USBphpTunnel autostarts: if autoPortSelection > 0 (the default) it will send and receive (after 10 sec.)
 
-    4) the LED on Arduino PIN 13 will flash (rate 4 sec). Very simple way to flash a led ! :)
+    4) the LED on Arduino UNO - PIN 13 will flash (rate 4 sec). Very simple way to flash a led ! :)
    
     5) it is safe to connect-disconnect Arduino USB 
 
@@ -108,8 +111,10 @@ Arduino UNO:
                the message MUST start with "*". It is show on terminal (not sended to Arduino)
                note: red, color set on config.ini
 
-    The protocol is pure text, so we can also do testing with a standard terminal application (Arduino console terminal). (img/screenshot05.png)
-    note: the only terminal app that worked for me is "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
+    The protocol is pure text, so we can also do testing with a standard terminal application 
+      (Arduino console terminal). (img/screenshot05.png)
+    note: the only terminal app that worked for me is "Serial USB terminal" 
+                    https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
     
     More apps used in development (see img/screenshot01.png): 
             * "Terminal IDE" (to compile java and simple apps, to enhance linux) 
@@ -128,8 +133,8 @@ Arduino UNO:
   
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
-    At the end your application will works on MXQ+Arduino also 24/7 with only 20 Watt AC power, and can also be controlled
-    by smartphone via WiFi.
+    At the end your application will works on MXQ+Arduino also 24/7 with only 20 Watt AC power, and can also
+    be controlled by smartphone via WiFi.
     What more?
     Enjoy.
 
