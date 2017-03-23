@@ -63,8 +63,8 @@ MXQ:
 
    7) Edit the config file at /sdcard/USBphpTunnel/config.ini:
                 - set baudRate=115200
-                - update arduinoProductId=7523
-                - update arduinoVendorId=1A86
+                - update arduinoProductId=( e.g. 7523)
+                - update arduinoVendorId= ( e.g. 1A86)
                 - if required update phpPath=http\://localhost\:8080
 
 Arduino UNO:
