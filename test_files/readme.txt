@@ -46,10 +46,12 @@ MXQ:
           6c) close the app USBphpTunnel.
 
    7) Edit the config file at /sdcard/USBphpTunnel/config.ini:
-                - set baudRate=115200
-                - update arduinoProductId=7523
-                - update arduinoVendorId=1A86
-                - if required update phpPath=http\://localhost\:8080
+              - set baudRate=115200
+              - update arduinoProductId=7523
+              - update arduinoVendorId=1A86
+              - if required update phpPath=http\://localhost\:8080
+              - set reboot=none if you don't like autoreboot
+                   else set reboot=HH\:MM\:SS
 
 Arduino UNO:
     1) compile and install the Sketch arduino/testser02.ino
@@ -122,19 +124,18 @@ Arduino UNO:
   
     Now you can develop MySQL and web enabled Arduino applications only working on Arduino and PHP. 
     To keep ligth the Arduino Sketch, you can port all not realtime logic to PHP side.
-    At the end your application will works on MXQ+Arduino also 24/7 with only 20 Watt AC power, and can also be controlled by smartphone via WiFi.
+    At the end your application will works on MXQ+Arduino also 24/7 (see Issue 2) with only 20 Watt AC power, and can also be controlled by smartphone via WiFi.
     What more?
     Enjoy.
 
    ============================ 2017-04-22 version 1.1
    
-   1) If WEB server not ready, USBphpTunnel finish and restarts after 20s: that make possible to start MXQ with Arduino plugged in USB.
-   2) Running the test after 30-46 hours the MXQ frozen. Added reboot (optional) every 24h.
-       note: on update you must delete the /mnt/shell/emulated/0/USBphpTunnel/config.ini file or edit it adding the reboot time or 'none':
-          reboot=none|HH\:MM\:SS
-   3) using the test program (sends data every 2s):
-         delay from insert Arduino USB plug to save data: 8s.
-         data missed for reboot: 82 - 85 s.
+   1) If WEB server not ready, USBphpTunnel finish and restarts after 20s: using ver. 1.1 it is possible to start MXQ with Arduino board plugged on USB.
+   2) Running the test after 30-46 hours the MXQ frozen. As workaround added reboot (optional) every 24h.
+       note: on update you must delete the /mnt/shell/emulated/0/USBphpTunnel/config.ini file or edit it adding the reboot time or 'none'.
+   3) Using the test program (sends data every 2s):
+       - Delay from insert Arduino USB plug to save data: 8 sec.
+       - Data blackout for reboot: 82 - 85 sec.
    
 
 
