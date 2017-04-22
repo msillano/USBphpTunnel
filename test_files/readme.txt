@@ -1,8 +1,10 @@
 Simple test for USPphpTunnel (files in test_files dir)
 
 Developped an tested using:
-       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC") http://www.ebay.it/itm/141956901542 (29.78 €)
-       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) http://www.ebay.it/itm/152002551433 (5.79 €)
+       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC")
+           http://www.ebay.it/itm/141956901542 (29.78 €)
+       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) 
+           http://www.ebay.it/itm/152002551433 (5.79 €)
        and some free apps.
 
 ================================  Setup:
