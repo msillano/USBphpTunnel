@@ -1,15 +1,15 @@
 Simple test for USPphpTunnel (files in test_files dir)
 
 Developped an tested using:
-       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC") http://www.ebay.it/itm/141956901542 (29.78 €)
-       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) http://www.ebay.it/itm/152002551433 (5.79 €)
+       MXQ ("MXQ 4K*2K 1080P Smart TV BOX XBMC/Kodi H.265 Android Quad Core WiFi 8GB Mini PC") http://www.ebay.it/itm/141956901542 (29.78 â‚¬)
+       ARDIINO UNO (UNO R3 Scheda Micro USB ATmega328P CH340G Board Modulo Controllore per Arduino) http://www.ebay.it/itm/152002551433 (5.79 â‚¬)
        and some free apps.
 
 ================================  Setup:
 MXQ:
    pre-condition: MSQ connected via lan/wifi to main PC (win) and internet.
    note: to make things easy, connect screen and keyboard+mouse to MXQ (only for installation and setup)(see img/screenshot01.png)
-         I get one kit from ebay: (KIT TASTIERA SLIM MOUSE OTTICO WIRELESS SENZA FILI 2.4 GHZ MINI KEYBOARD) http://www.ebay.it/itm/112044834373 (7.80 €)
+         I get one kit from ebay: (KIT TASTIERA SLIM MOUSE OTTICO WIRELESS SENZA FILI 2.4 GHZ MINI KEYBOARD) http://www.ebay.it/itm/112044834373 (7.80 â‚¬)
          To map all special chars required to write code and not presents in this mini Italian keyboard I used "External Keyboard Helper Demo"
          https://play.google.com/store/apps/details?id=com.apedroid.hwkeyboardhelperdemo  
 
@@ -20,7 +20,8 @@ MXQ:
 
    3) install phpMyAdmin ver. 4.1.14.1 from https://www.phpmyadmin.net/files/ in /sdcard/pws/phpmyadmin
       note: to make it easy, install FTP:   
-           3.a) on MXQ "Rooted SSH/SFTP Daemon"                                                     https://play.google.com/store/apps/details?id=web.oss.sshsftpDaemon
+           3.a) on MXQ "Rooted SSH/SFTP Daemon"                                                    
+                https://play.google.com/store/apps/details?id=web.oss.sshsftpDaemon
            3.b) on Windows: "WinSCP"  https://winscp.net/                                       
    
    3) using phpmyadmin:  3a) create database "datatest"
@@ -30,15 +31,16 @@ MXQ:
 
    5) install on MXQ the app: USBphpTunnel01_d.apk
           5a) copy it in /scard/download
-          5b) using a file browser on MKQ  (e.g. totalCommander https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander)
-              click on /scard/dowunload/USBphpTunnel01_d.apk to install.
+          5b) using a file browser on MKQ  (e.g. totalCommander
+            https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander)
+            click on /scard/dowunload/USBphpTunnel01_d.apk to install.
 
    6) connect Arduino to USB :
           6a) choose "USB php Tunnel" and "Always" for USB device
               note: first run creates the config file
           6b) The app must find your Arduino board: keep the vendorId and productId (see img/screenshot03.png)
               note: for supported vendorId/productId, see the file 
-                    \usbSerialForAndroid\src\main\java\com\hoho\android\usbserial\driver\UsbId.java
+                  \usbSerialForAndroid\src\main\java\com\hoho\android\usbserial\driver\UsbId.java
           6c) close the app USBphpTunnel.
 
    7) Edit the config file at /sdcard/USBphpTunnel/config.ini:
@@ -57,7 +59,7 @@ Arduino UNO:
    
     1) Turn-on or re-boot (Ctrl+Alt+Cancel on keyboard) the MXQ [having Arduino unplugged.(obsolete: see ver 1.1 later)]
 
-    2) [Wait 60 sec (time to start web server) then plug Arduino board USB (obsolete: see ver 1.1 later)]
+    [2) Wait 60 sec (time to start web server) then plug Arduino board USB (obsolete: see ver 1.1 later)]
 
     3) the USBphpTunnel autostarts: if autoPortSelection > 0 (the default) it will send and receive 
 
@@ -98,16 +100,20 @@ Arduino UNO:
                note: red, color set on config.ini
 
     The protocol is pure text, so we can also do testing with a standard terminal application (Arduino console terminal). (img/screenshot05.png)
-    note: the only terminal app that worked for me is "Serial USB terminal" https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
+    note: the only terminal app that worked for me is "Serial USB terminal"
+         https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal
     
     More apps used in development (see img/screenshot01.png): 
-            * "Terminal IDE" (to compile java and simple apps, to enhance linux) https://play.google.com/store/apps/details?id=com.spartacusrex.spartacuside
-            * "All-In-One Toolbox (pulito)" (Android management) https://play.google.com/store/apps/details?id=imoblife.toolbox.full
-            * "MatLog: Material Logcat Reader" (logcat capture) https://play.google.com/store/apps/details?id=com.pluscubed.matlog
+            * "Terminal IDE" (to compile java and simple apps, to enhance linux) 
+                 https://play.google.com/store/apps/details?id=com.spartacusrex.spartacuside
+            * "All-In-One Toolbox (pulito)" (Android management)
+                 https://play.google.com/store/apps/details?id=imoblife.toolbox.full
+            * "MatLog: Material Logcat Reader" (logcat capture) 
+                 https://play.google.com/store/apps/details?id=com.pluscubed.matlog
     
     ================  For Android developers
          
-            Any contribution is very well accepted and solicited ( https://github.com/msillano/USBphpTunnel ) Thanks.
+            Any contribution is very well accepted and solicited. Thanks.
             Acknowledgement: developped starting from https://github.com/mik3y/usb-serial-for-android.
 
    ============================= CONCLUSIONS
@@ -122,8 +128,7 @@ Arduino UNO:
    
    1) If WEB server not ready, USBphpTunnel finish and restarts after 20s: that make possible to start MXQ with Arduino plugged in USB.
    2) Running the test after 30-46 hours the MXQ frozen. Added reboot (optional) every 24h.
-       note: on update you must delete the /mnt/shell/emulated/0/USBphpTunnel/config.ini file 
-          or edit it adding the reboot time or 'none':
+       note: on update you must delete the /mnt/shell/emulated/0/USBphpTunnel/config.ini file or edit it adding the reboot time or 'none':
           reboot=none|HH\:MM\:SS
    3) using the test program (sends data every 2s):
          delay from insert Arduino USB plug to save data: 8s.
