@@ -20,14 +20,20 @@
  *
  * Copyright 2017 marco sillano <marcosillano@gmail.com>
  *
- *  Modified for usbPhpTunnel v.1.0
- *  GNU Lesser General Public License
+ * Modified for usbPhpTunnel v.1.1  (2017-04-22)
+ *   - If WEB server not ready, restarts after 20s
+ *   - Addeded 'reboot' field in config.ini
+ *   Modified for usbPhpTunnel v.1.0 (2017-03-20)
+ * *  GNU Lesser General Public License
  */
 
 package com.hoho.android.usbserial.usbPhpTunnel;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.AsyncTask;
@@ -204,6 +210,7 @@ public class DeviceListActivity extends Activity {
                 myConfig.set("phpPath", "http://localhost:8080");
                 myConfig.set("colorPhp", "#AA0000");
                 myConfig.set("colorArduino", "#00AA00");
+                myConfig.set("reboot", "01:00:00");
                 myConfig.store();
             }
 
@@ -243,7 +250,20 @@ public class DeviceListActivity extends Activity {
                         webRunning = true;
                     } catch (Exception e) {
                         Log.d(TAG, "Host: " + e.getMessage());
+// new
                         webRunning = false;
+
+                        Intent restartIntent = DeviceListActivity.this.getPackageManager().getLaunchIntentForPackage("com.hoho.android.usbserial.usbPhpTunnel");
+                        restartIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        restartIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+                        PendingIntent pi = PendingIntent.getActivity(
+                                getApplicationContext(), 0,
+                                restartIntent, PendingIntent.FLAG_CANCEL_CURRENT |PendingIntent.FLAG_ONE_SHOT );
+
+                        AlarmManager am =( AlarmManager) DeviceListActivity.this.getSystemService(Context.ALARM_SERVICE);
+                        am.set(AlarmManager.RTC, System.currentTimeMillis()+ 1000 * 20 , pi); // Millisec * Second + now();
+                        finish();
                     }
                     return null;
                 }

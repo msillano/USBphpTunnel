@@ -20,13 +20,18 @@
  *
  * Copyright 2017 marco sillano <marcosillano@gmail.com>
  *
- *  Modified for usbPhpTunnel v.1.0
+ *  Modified for usbPhpTunnel v.1.1  (2017-04-22)
+ *   - Reboot (optional)  every 24h at time in 'reboot' field (config.ini): values: 'none'|'HH\:MM\:SS'
+ *  Modified for usbPhpTunnel v.1.0 (2017-03-20)
  *  GNU Lesser General Public License
+ *
  */
 
 package com.hoho.android.usbserial.usbPhpTunnel;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +42,8 @@ import android.hardware.usb.UsbManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
+import android.os.SystemClock;
 import android.text.Html;
 import android.util.Log;
 import android.widget.CheckBox;
@@ -58,6 +65,12 @@ import org.apache.http.util.EntityUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -86,6 +99,7 @@ public class SerialConsoleActivity extends Activity {
     private TextView mTitleTextView;
     private TextView mDumpTextView;
     private ScrollView mScrollView;
+
     private final SerialInputOutputManager.Listener mListener =
             new SerialInputOutputManager.Listener() {
 
@@ -105,8 +119,7 @@ public class SerialConsoleActivity extends Activity {
                     });
                 }
             };
-
-
+// Runtime.getRuntime().exec(new String[]{"/system/xbin/su","-c","reboot now"});
     // == added for tunnel app m.s.
     //  write limit
     private final static int MAX_LINE = 80;
@@ -115,6 +128,7 @@ public class SerialConsoleActivity extends Activity {
     private static String phpPath = "http://localhost:8080";
     private String colorPhp = "#AA0000";
     private String colorArduino = "#00AA00";
+    private String reboot = "none";
 
     private SerialInputOutputManager mSerialIoManager;
 
@@ -122,6 +136,13 @@ public class SerialConsoleActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            //
+            StringBuilder sb = new StringBuilder();
+            sb.append("INTENT Action: " + intent.getAction() + "\n");
+            sb.append("URI: " + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + "\n");
+            String log = sb.toString();
+            Log.d(TAG, log);
+            //
             if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
                 UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                 if ((device.getVendorId() == sPort.getDriver().getDevice().getVendorId()) &&
@@ -131,26 +152,15 @@ public class SerialConsoleActivity extends Activity {
                     SerialConsoleActivity.this.onPause();
                 }
             }
-        }
+            if (new String("usbSerial.action.REBOOT").equals(action)) {
+                Log.d(TAG, "REBOOT: delayed received");
+                rebootNow();
+            }
+
+
+            }
     };
 
-    // http php read
-    public static String GET(String page) {
-        String url = phpPath + page;
-        String result;
-        try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(url);
-
-            HttpResponse httpResponse = httpClient.execute(httpGet);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            result = EntityUtils.toString(httpEntity);
-        } catch (Exception e) {
-            result = "** " + e.getMessage();
-        }
-        return result;
-    }
-// end added
 
     /**
      * Starts the activity, using the supplied driver instance.
@@ -175,6 +185,7 @@ public class SerialConsoleActivity extends Activity {
         // == added for tunnel app m.s.
         IntentFilter mfilter = new IntentFilter(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(mUsbReceiver, mfilter);
+
 // end added
 
         chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -203,8 +214,7 @@ public class SerialConsoleActivity extends Activity {
 
 
         if (isExternalStorageWritable()) {
-            File path = Environment.getExternalStoragePublicDirectory(
-                    getString(R.string.app_title));
+            File path = Environment.getExternalStoragePublicDirectory(getString(R.string.app_title));
             File file = new File(path, getString(R.string.config));
             if (file.exists()) {
                 Config myConfig = new Config(file.getPath());
@@ -213,11 +223,11 @@ public class SerialConsoleActivity extends Activity {
                     baud = Integer.parseInt(myConfig.get("baudRate"));
                     colorPhp = myConfig.get("colorPhp");
                     colorArduino = myConfig.get("colorArduino");
-
+                    reboot = myConfig.get("reboot");
                 }
             }
         }
-
+        scheduleNotification();
 // end added
 
     }
@@ -277,9 +287,16 @@ public class SerialConsoleActivity extends Activity {
                 showStatus(mDumpTextView, "RI  - Ring Indicator", sPort.getRI());
                 showStatus(mDumpTextView, "RTS - Request To Send", sPort.getRTS());
                 String msg = "Baud rate : " + baud + "\n\n";
-
                 mDumpTextView.append(msg);
-
+// test: prints list of running AppProcess:
+                /*
+                ActivityManager activityManager = (ActivityManager) SerialConsoleActivity.this.getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningAppProcessInfo> runningAppList = activityManager.getRunningAppProcesses();
+                for (ActivityManager.RunningAppProcessInfo processInfo : runningAppList ){
+                    String processName = processInfo.processName;
+                    mDumpTextView.append(processName+"\n");
+                }
+                */
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
                 mTitleTextView.setText(getString(R.string.err_device) + " " + e.getMessage());
@@ -296,7 +313,6 @@ public class SerialConsoleActivity extends Activity {
         onDeviceStateChange();
     }
 
-    //=================================================== special for tunnel application (m.s.)
 
     private void stopIoManager() {
         if (mSerialIoManager != null) {
@@ -318,6 +334,63 @@ public class SerialConsoleActivity extends Activity {
         stopIoManager();
         startIoManager();
     }
+
+    //=================================================== special for tunnel application (m.s.)
+    private void scheduleNotification() {
+        if (reboot.equals("none")){
+            return ;
+        }
+        GregorianCalendar rightNow = new GregorianCalendar();
+        rightNow.setLenient(true);
+        rightNow.setTime(new Date());
+
+        long nowMillis =rightNow.getTimeInMillis();
+        String[] rebootTime = reboot.split(":");
+        rightNow.set(Calendar.HOUR_OF_DAY, Integer.parseInt(rebootTime[0]));
+        rightNow.set(Calendar.MINUTE, Integer.parseInt(rebootTime[1]));
+        rightNow.set(Calendar.SECOND, Integer.parseInt(rebootTime[2]));
+        long  futureInMillis =rightNow.getTimeInMillis();
+        if (futureInMillis < nowMillis){
+            rightNow.add(Calendar.DAY_OF_MONTH, 1);
+            futureInMillis =rightNow.getTimeInMillis();
+        }
+        final long delay =  futureInMillis - nowMillis;
+        Log.d(TAG, "INTENT: set reboot at " + rightNow );
+        Timer timer = new Timer();
+        timer.schedule( new TimerTask(){
+            @Override
+            public void run() {
+                rebootNow();
+            }
+        }, delay);
+    }
+
+    private void rebootNow() {
+        try {
+            Runtime.getRuntime().exec(new String[]{"/system/xbin/su", "-c", "reboot now"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // http php read
+    public static String GET(String page) {
+        String url = phpPath + page;
+        String result;
+        try {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url);
+
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            result = EntityUtils.toString(httpEntity);
+        } catch (Exception e) {
+            result = "** " + e.getMessage();
+        }
+        return result;
+    }
+
 
     // replaces TextView.append(string) and limit lines at MAX_LINES
     public void writeTerminal(String data, String color) {
@@ -345,6 +418,8 @@ public class SerialConsoleActivity extends Activity {
             }
         }
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
+//debug
+        Log.d(TAG, "Memory total: " + Runtime.getRuntime().totalMemory() + "  free: " + Runtime.getRuntime().freeMemory());
     }
 
     private void sendString(String out) {
@@ -363,19 +438,16 @@ public class SerialConsoleActivity extends Activity {
                     mSerialIoManager.writeAsync(b);
                 } catch (IOException e) {
                     Log.w(TAG, "send error: " + e.getMessage());
-
                 }
             }
         }
-
-
         writeTerminal(sended, colorPhp);
     }
 
 
     private void updateReceivedData(byte[] data) {
         final String message;
-// anny messge from arduino to screen
+// any message from arduino to screen
         if (data[0] == '*') {
             message = new String(data);
         } else {
@@ -386,7 +458,7 @@ public class SerialConsoleActivity extends Activity {
         // tunnelling from arduino to php only if it starts with '/'
         if (data.length > 1 && data[0] == '/') {
             String rx = new String(data);
-//            new HttpAsyncTask().execute("/testio/add.php?primo=7&secondo=6.8&terzo=14:02");
+// test           new HttpAsyncTask().execute("/testio/add.php?primo=7&secondo=6.8&terzo=14:02");
             new HttpAsyncTask().execute(rx.trim());
         }
 
@@ -401,8 +473,6 @@ public class SerialConsoleActivity extends Activity {
     }
 
 
-// ============================================================  end tunnel code
-
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -412,15 +482,13 @@ public class SerialConsoleActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             String[] parts = result.split("\\r?\\n|\\r");
-          //  sendString("* found parts: " + parts.length + "\n");
+            //  sendString("* found parts: " + parts.length + "\n");
             for (String toSend : parts) {
                 final String out = toSend.trim();
-                if (toSend.length() > 1)  {
-                    sendString(toSend + "\n");
+                if (out.length() > 1) {
+                    sendString(out + "\n");
                 }
             }
-
-
             // sendString(result + "\r");
         }
     }
