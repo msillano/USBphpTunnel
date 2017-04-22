@@ -2,15 +2,12 @@ Current Version (in development)
   
  
  
-usbPhpTunnel v.1.0
- (2017-03-20)
-
-    base version
+usbPhpTunnel v.1.0  (2017-03-20)
+  -  base version
 usbPhpTunnel v.1.1  (2017-04-22)
-  - If WEB server not ready, restarts after 20s
-: it make now possible to 
-    start MXQ having Arduino plugged in USB.  
-  - Addeded 'reboot' (optional) every 24h
+  - If WEB server not ready, restarts after 20s: it make now possible to 
+    start MXQ having Arduino plugged on USB. (Issue #1) 
+  - Addeded 'reboot' (optional) every 24h (Issue #2)
     note: on update delete /mnt/shell/emulated/0/USBphpTunnel/config.ini or
           edit it adding restart time or 'none':
           reboot=none|HH\:MM\:SS
