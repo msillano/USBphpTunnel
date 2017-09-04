@@ -11,4 +11,6 @@ usbPhpTunnel v.1.1  (2017-04-22)
     note: on update delete /mnt/shell/emulated/0/USBphpTunnel/config.ini or
           edit it adding restart time or 'none':
           reboot=none|HH\:MM\:SS
-   
+usbPhpTunnel v.1.2  (2017-09-02)
+   - Modified updateReceivedData(byte[] data): String/data management, added 
+          trim() to clean first chars
