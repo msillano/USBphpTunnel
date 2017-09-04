@@ -20,6 +20,8 @@
  *
  * Copyright 2017 marco sillano <marcosillano@gmail.com>
  *
+ *  Modified for usbPhpTunnel v.1.2  (2017-09-01)
+ *   - modified updateReceivedData(byte[] data): String/data management, added trim to clean first chars
  *  Modified for usbPhpTunnel v.1.1  (2017-04-22)
  *   - Reboot (optional)  every 24h at time in 'reboot' field (config.ini): values: 'none'|'HH\:MM\:SS'
  *  Modified for usbPhpTunnel v.1.0 (2017-03-20)
@@ -446,22 +448,22 @@ public class SerialConsoleActivity extends Activity {
 
 
     private void updateReceivedData(byte[] data) {
-        final String message;
+        // ver 1.2 modified String/data management
+        // added trim to clean first chars
+        String message;
 // any message from arduino to screen
-        if (data[0] == '*') {
-            message = new String(data);
-        } else {
+        message = new String(data).trim();
+        // tunnelling from arduino to php only if it starts with '/'
+        if (message.length() > 1 && message.charAt(0) == '/') {
+            // test  new HttpAsyncTask().execute("/testio/add.php?primo=7&secondo=6.8&terzo=14:02");
+            new HttpAsyncTask().execute(message);
+        }
+        if (message.length() > 1 && message.charAt(0) != '*') {
             message = String.format(getString(R.string.read), data.length) + " \n"
                     + HexDump.dumpHexString(data) + "\n\n";
         }
-        writeTerminal(message, colorArduino);
-        // tunnelling from arduino to php only if it starts with '/'
-        if (data.length > 1 && data[0] == '/') {
-            String rx = new String(data);
-// test           new HttpAsyncTask().execute("/testio/add.php?primo=7&secondo=6.8&terzo=14:02");
-            new HttpAsyncTask().execute(rx.trim());
-        }
 
+     writeTerminal(message, colorArduino);
     }
 
     // from  https://developer.android.com/guide/topics/data/data-storage.html
