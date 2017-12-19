@@ -14,3 +14,9 @@ usbPhpTunnel v.1.1  (2017-04-22)
 usbPhpTunnel v.1.2  (2017-09-02)
    - Modified updateReceivedData(byte[] data): String/data management, added 
           trim() to clean first chars
+          
+usbPhpTunnel_fifo v.1.0 (2017-1210) see https://github.com/msillano/USBphpTunnel_fifo
+   - NEW php extension + arduino sample to: 
+       make php master (in USBphpTunnel Arduino is master)
+       NON blocking communications
+       allow concurrence
